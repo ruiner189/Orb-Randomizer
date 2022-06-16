@@ -19,16 +19,19 @@ namespace Orb_Randomizer.Patches
 
         public static void Randomize()
         {
-            Plugin.Log.LogMessage("Randomizer start!");
             GetRandomSelectionPool();
-            ClearNextLevelPrefab();
+            if(Plugin.RandomizerType != RandomizerType.NONE)
+            {
+                Plugin.Log.LogMessage("Randomizer start!");
+                ClearNextLevelPrefab();
 
-            if (Plugin.RandomizerType == RandomizerType.LOOP)
-                LoopRandom();
-            else if (Plugin.RandomizerType == RandomizerType.LEVEL)
-                LevelRandom();
+                if (Plugin.RandomizerType == RandomizerType.LOOP)
+                    LoopRandom();
+                else if (Plugin.RandomizerType == RandomizerType.LEVEL)
+                    LevelRandom();
 
-            Plugin.Log.LogMessage("Randomizer complete!");
+                Plugin.Log.LogMessage("Randomizer complete!");
+            }
         }
 
 

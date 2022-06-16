@@ -2,6 +2,7 @@
 {
     public enum RandomizerType
     {
+        NONE,
         LOOP,
         LEVEL
     }
