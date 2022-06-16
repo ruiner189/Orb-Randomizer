@@ -11,6 +11,8 @@ namespace OrbRandomizer.Patches
     {
         public static bool Prefix(UpgradeDetailsManager __instance, Attack before, Attack after)
         {
+			if (Plugin.RandomizerType == RandomizerType.NONE) return true;
+
 			before.ClearBattleParameters();
 			before.SoftInit(__instance._deckManager, __instance._relicManager, __instance._cruciballManager);
 			foreach (Transform transform in __instance._elementsToClear)
@@ -54,6 +56,8 @@ namespace OrbRandomizer.Patches
     {
 		public static void Postfix(UpgradeConfirmationPanel __instance, GameObject orb)
         {
+			if (Plugin.RandomizerType == RandomizerType.NONE) return;
+
 			GameObject previous = __instance.transform.GetChild(0).gameObject;
 
 			Attack attack = orb.GetComponent<Attack>();
