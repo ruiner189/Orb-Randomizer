@@ -21,7 +21,5 @@ namespace OrbRandomizer
         {
             SetSeed(data.Seed);
         }
-
-
     }
 }

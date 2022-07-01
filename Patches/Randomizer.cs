@@ -19,9 +19,9 @@ namespace Orb_Randomizer.Patches
 
         public static void Randomize()
         {
-            GetRandomSelectionPool();
-            if(Plugin.RandomizerType != RandomizerType.NONE)
+            if (Plugin.RandomizerType != RandomizerType.NONE)
             {
+                GetRandomSelectionPool();
                 Plugin.Log.LogMessage("Randomizer start!");
                 ClearNextLevelPrefab();
 
@@ -133,22 +133,45 @@ namespace Orb_Randomizer.Patches
                 GameObject levelTwo = GetObjectOfLevel(2);
                 GameObject levelThree = GetObjectOfLevel(3);
 
-                Attack attackOne = levelOne.GetComponent<Attack>();
-                Attack attackTwo = levelTwo.GetComponent<Attack>();
-
-                attackOne.NextLevelPrefab = levelTwo;
-                attackTwo.NextLevelPrefab = levelThree;
-
+                Attack attackOne = null;
+                Attack attackTwo = null;
 
                 if (levelOne != null)
+                {
                     _selectionPool.Remove(levelOne);
+                    attackOne = levelOne.GetComponent<Attack>();
+                }
                 if (levelTwo != null)
+                {
                     _selectionPool.Remove(levelTwo);
+                    attackTwo = levelTwo.GetComponent<Attack>();
+
+                }
                 if (levelThree != null)
+                {
                     _selectionPool.Remove(levelThree);
 
-                if(Plugin.PostSpoilerLog)
-                    Plugin.Log.LogInfo($"{levelOne.name} => {levelTwo.name} => {levelThree.name}");
+                }
+
+                if(attackOne != null)
+                    attackOne.NextLevelPrefab = levelTwo;
+
+                if(attackTwo != null)
+                    attackTwo.NextLevelPrefab = levelThree;
+
+                if (Plugin.PostSpoilerLog)
+                {
+                    if (levelTwo == null)
+                    {
+                        Plugin.Log.LogInfo($"{levelOne.name} =/=>");
+                    } else if (levelThree == null)
+                    {
+                        Plugin.Log.LogInfo($"{levelOne.name} => {levelTwo.name} =/=>");
+                    } else
+                    {
+                        Plugin.Log.LogInfo($"{levelOne.name} => {levelTwo.name} => {levelThree.name}");
+                    }
+                }
             }
         }
 
@@ -282,7 +305,6 @@ namespace Orb_Randomizer.Patches
                 if (Plugin.RandomizeCruciballStone)
                     __instance._cruciballManager.stonePrefab = randomOrbs[rand.Next(0, randomOrbs.Count)].GetComponent<PachinkoBall>();
             }
-
         }
     }
 }

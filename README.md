@@ -12,6 +12,12 @@ There are several options available in the config to change your experience. You
 
 ## Changelog
 <details>
+  <summary> v1.0.1 </summary>
+
+* Prevent CustomStartDeck from overwriting deck if set to randomize the starting deck.
+</details>
+<details>
   <summary> v1.0.0 </summary>
-     <ul> <li>Initial Commit</li> </ul>
+
+* Initial Commit
 </details>
